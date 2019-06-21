@@ -37,7 +37,7 @@ public class DataAccessorTest {
                         "LIMIT ? OFFSET ?",
                 da.getGeneratedQuery());
 
-        PagedResult result = da.paginate();
+        PagedResult<IssueMetrics> result = da.paginate();
         Assert.assertNull(result.nextKey);
         Assert.assertEquals(2, result.records.size());
         System.out.println(result);
@@ -95,10 +95,10 @@ public class DataAccessorTest {
                         "LIMIT ? OFFSET ?",
                 da.getGeneratedQuery());
 
-//        PagedResult result = da.paginate();
-//        Assert.assertNull(result.nextKey);
-//        Assert.assertEquals(2, result.records.size());
-//        System.out.println(result);
+        PagedResult<AgentMetrics> result = da.paginate();
+        Assert.assertNull(result.nextKey);
+        Assert.assertEquals(2, result.records.size());
+        System.out.println(result);
 
         da = new DataAccessor<AgentMetrics>(AgentMetrics.class)
                 .withGroupBy("domain")
@@ -125,12 +125,11 @@ public class DataAccessorTest {
                         "group by domain, time, agent_id " +
                         "LIMIT ? OFFSET ?",
                 da.getGeneratedQuery());
-//
-//        result = da.paginate();
-//        Assert.assertNull(result.nextKey);
-//        Assert.assertEquals(1, result.records.size());
-//        System.out.println(result);
-//        Assert.assertEquals("3", ((IssueMetrics)result.records.get(0)).issueId);
+
+        result = da.paginate();
+        Assert.assertNull(result.nextKey);
+        Assert.assertEquals(1, result.records.size());
+        System.out.println(result);
     }
 
 }

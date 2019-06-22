@@ -75,7 +75,7 @@ public class DataAccessor<T> {
         return generatedQuery;
     }
 
-    public PagedResult paginate() throws Exception {
+    public PagedResult<T> paginate() throws Exception {
         List<T> results = new ArrayList<>(this.limit);
         List<EntityField> fieldList = EntityFieldsCache.lookup(getEntityClass());
         try (Connection conn = ConnectionFactory.getConnection();
@@ -96,7 +96,7 @@ public class DataAccessor<T> {
                 }
             }
         }
-        return new PagedResult(results, nextKey);
+        return new PagedResult<T>(results, nextKey);
     }
 
     private int setStatementParameters(PreparedStatement ps) throws Exception {

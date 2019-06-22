@@ -40,7 +40,8 @@ public class DataAccessorTest {
         PagedResult<IssueMetrics> result = da.paginate();
         Assert.assertNull(result.nextKey);
         Assert.assertEquals(2, result.records.size());
-        System.out.println(result);
+        //PagedResult{records=[IssueMetrics{domain='hscustomer', issueId='2', createdAt=1001, inboundMessages=100, outboundMessages=50, csat=1},
+        //IssueMetrics{domain='hscustomer', issueId='3', createdAt=1002, inboundMessages=200, outboundMessages=150, csat=3}], nextKey='null'}
 
         da = new DataAccessor<IssueMetrics>(IssueMetrics.class)
                 .withFilter(new String[]{"domain", "eq"}, "hscustomer")
@@ -67,7 +68,7 @@ public class DataAccessorTest {
         result = da.paginate();
         Assert.assertNull(result.nextKey);
         Assert.assertEquals(1, result.records.size());
-        System.out.println(result);
+        // PagedResult{records=[IssueMetrics{domain='hscustomer', issueId='3', createdAt=1002, inboundMessages=200, outboundMessages=150, csat=3}], nextKey='null'}
         Assert.assertEquals("3", ((IssueMetrics)result.records.get(0)).issueId);
     }
 
